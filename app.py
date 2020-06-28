@@ -4,7 +4,7 @@ from scrape_stocks.get_yahoo_finance_data import *
 app = Flask(__name__)
 app.vars = {}
 
-@app.route('/',methods=['GET','POST'])
+#@app.route('/',methods=['GET','POST'])
 @app.route('/index',methods=['GET','POST'])
 def get_ticker():
     if request.method == 'GET':
