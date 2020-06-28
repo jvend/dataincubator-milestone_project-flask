@@ -9,7 +9,7 @@ def get_ticker():
         return render_template('ticker.html')
     else:
         app.vars['name'] = request.form['name_ticker']
-        return redirect('plot_stock_data')
+        return redirect('/plot_stock_data')
 
 @app.route('/plot_stock_data',methods=['GET'])
 def plot_stock_data():
