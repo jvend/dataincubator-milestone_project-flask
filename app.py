@@ -1,27 +1,21 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for
 
 app = Flask(__name__)
 app.vars = {}
 
 @app.route('/',methods=['GET','POST'])
+@app.route('/index',methods=['GET','POST'])
 def get_ticker():
     if request.method == 'GET':
         return render_template('ticker.html')
     else:
         app.vars['name'] = request.form['name_ticker']
-        return redirect('/plot_stock_data')
+        return redirect(url_for('plot_stock_data'))
 
-@app.route('/plot_stock_data',methods=['GET'])
+@app.route('/plot_stock_data',methods=['GET','POST'])
 def plot_stock_data():
-   return 'Plot here!' 
+   return 'Plot data for ' + app.vars['name'] 
 
-#@app.route('/')
-#def index():
-#  return render_template('index.html')
-#
-#@app.route('/about')
-#def about():
-#  return render_template('about.html')
 
 if __name__ == '__main__':
     app.run(port=33507)
