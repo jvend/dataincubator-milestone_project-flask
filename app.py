@@ -1,19 +1,19 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect
 from scrape_stocks.get_yahoo_finance_data import *
 
 app = Flask(__name__)
 app.vars = {}
 
-#@app.route('/',methods=['GET','POST'])
+@app.route('/',methods=['GET','POST'])
 @app.route('/index',methods=['GET','POST'])
 def get_ticker():
     if request.method == 'GET':
         return render_template('ticker.html')
     else:
         app.vars['name_ticker'] = request.form['name_ticker']
-        return redirect(url_for('plot_stock_data'))
+        return redirect('/plot_stock_data')
 
-@app.route('/plot_stock_data',methods=['GET','POST'])
+@app.route('/plot_stock_data',methods=['GET'])
 def plot_stock_data():
     from bokeh.plotting import figure
     from bokeh.resources import CDN
@@ -24,11 +24,14 @@ def plot_stock_data():
     url = build_url(ticker) 
     page = requests.get(url)
     if page.status_code == 200:
-        html = page.content.decode('utf-8')
-        data = json.loads(html)['chart']['result'][0]
-        datetimes   = list(map(datetime.fromtimestamp,data['timestamp']))
-        close_data  = data['indicators']['quote'][0]['close']
-        close_data  = [ el if el is not None else float("nan") for el in close_data ]
+        try:
+            html = page.content.decode('utf-8')
+            data = json.loads(html)['chart']['result'][0]
+            datetimes   = list(map(datetime.fromtimestamp,data['timestamp']))
+            close_data  = data['indicators']['quote'][0]['close']
+            close_data  = [ el if el is not None else float("nan") for el in close_data ]
+        except:
+            return 'Invalid ticker'
 
         #return str(close_data)
 
