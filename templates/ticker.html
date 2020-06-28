@@ -1,0 +1,22 @@
+<!doctype html>
+<title>Stock Prices</title> 
+<link rel=stylesheet type=text/css href='{{ url_for('static',filename='style.css')}}'>
+<div class=page>
+  <h1>Plot Stock Price</h1>
+  <div class=metanav>
+    <h4>
+      Please provide a ticker.
+    </h4>
+
+    <form id='ticker_info' method='post' action='index' >
+      <p> 
+    Ticker Name: <input type='text' name='name_ticker' />
+      </p>
+      <p> 
+    <input type='submit' value='Submit' />
+      </p>
+    </form>
+
+  </div>
+</div>
+
