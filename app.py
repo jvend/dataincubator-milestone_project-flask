@@ -7,13 +7,13 @@ app.vars = {}
 def get_ticker():
     if request.method == 'GET':
         return render_template('ticker.html')
-    else:
-        app.vars['name'] = request.form['name_ticker']
-        return redirect('plot_stock_data')
-
-@app.route('/plot_stock_data','GET')
-def plot_stock_data():
-   return 'Plot here!' 
+#    else:
+#        app.vars['name'] = request.form['name_ticker']
+#        return redirect('plot_stock_data')
+#
+#@app.route('/plot_stock_data','GET')
+#def plot_stock_data():
+#   return 'Plot here!' 
 
 #@app.route('/')
 #def index():
