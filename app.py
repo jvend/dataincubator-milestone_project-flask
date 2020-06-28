@@ -26,7 +26,6 @@ def plot_stock_data():
     if page.status_code == 200:
         html = page.content.decode('utf-8')
         data = json.loads(html)['chart']['result'][0]
-        timestamp   = np.array(data['timestamp']                             )
         datetimes   = list(map(datetime.fromtimestamp,data['timestamp']))
         close_data  = data['indicators']['quote'][0]['close']
         close_data  = [ el if el is not None else float("nan") for el in close_data ]
